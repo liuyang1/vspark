@@ -1,13 +1,12 @@
-#! /usr/bin/env python3
+#! /usr/bin/env python2
 #-*- encoding=utf8 -*-
 import sys
 import os
 import math
 
-tbl = " ▏▎▍▌▋▊▉█"
+low, high = 0, 200 * 1000
+tbl = u" ▏▎▍▌▋▊▉█"
 # tbl = "0123456789"
-
-low, high = 0, 200
 
 
 def getTermWidth():
@@ -33,18 +32,14 @@ def trans(v, low, high, width):
 
 def mapBar(v, low, high, width):
     z, y = trans(v, low, high, width)
-    # print(z, y)
+    z = int(z)
+    y = int(y)
     return tbl[8] * (z) + tbl[(y)]
 
 
 if __name__ == "__main__":
     width = getTermWidth()
-    while 1:
-        try:
-            v = input()
-        except EOFError:
-            break
+    for v in iter(sys.stdin.readline, ''):
         v = int(v)
-        # print(v)
         s = mapBar(v, low, high, width)
         print(s)
